@@ -5,7 +5,7 @@ $msg='';
 if(isset($_POST['login'])){
     $id = $conn->real_escape_string($_POST['voterID']);
     $pass = $conn->real_escape_string($_POST['voterPass']);
-    $q = $conn->query("SELECT * FROM voters WHERE voterID='$id' AND voterPass='$pass' AND voterStat='active'");
+    $q = $conn->query("SELECT * FROM voters WHERE BINARY voterID='$id' AND voterPass='$pass' AND voterStat='active'");
     if($q->num_rows==1){
         $v = $q->fetch_assoc();
         if($v['voted']=='Y') {

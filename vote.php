@@ -14,7 +14,7 @@ $posRes = $conn->query("SELECT * FROM positions WHERE posStat='open' ORDER BY po
 if(isset($_POST['submit_votes'])) {
     // Input format: votes[posID] = array of selected candIDs
     // Check voter is active and not already voted
-    $q = $conn->query("SELECT voted, voterStat FROM voters WHERE voterID='$voter'")->fetch_assoc();
+    $q = $conn->query("SELECT voted, voterStat FROM voters WHERE BINARY voterID='$voter'")->fetch_assoc();
     if(!$q || $q['voterStat']!='active') { $msg = "Voter not active."; }
     else if($q['voted']=='Y') { $msg = "You already voted."; }
     else {
@@ -38,7 +38,7 @@ if(isset($_POST['submit_votes'])) {
         }
         if($ok){
             // mark voter as voted
-            $conn->query("UPDATE voters SET voted='Y' WHERE voterID='".$conn->real_escape_string($voter)."'");
+            $conn->query("UPDATE voters SET voted='Y' WHERE BINARY voterID='".$conn->real_escape_string($voter)."'");
             $msg = "Thank you. Your votes were recorded.";
         }
     }

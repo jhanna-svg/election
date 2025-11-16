@@ -4,7 +4,7 @@ $msg='';
 $editId = isset($_GET['edit']) ? $conn->real_escape_string($_GET['edit']) : '';
 $editData = null;
 if($editId !== '') {
-    $editData = $conn->query("SELECT * FROM voters WHERE voterID='$editId'")->fetch_assoc();
+    $editData = $conn->query("SELECT * FROM voters WHERE BINARY voterID='$editId'")->fetch_assoc();
 }
 
 // Save (add or update)
@@ -18,7 +18,7 @@ if(isset($_POST['save'])) {
     if($currentId !== '') {
         // Update
         if($id !== $currentId) {
-            $exists = $conn->query("SELECT voterID FROM voters WHERE voterID='$id' LIMIT 1");
+            $exists = $conn->query("SELECT voterID FROM voters WHERE BINARY voterID='$id' LIMIT 1");
             if($exists && $exists->num_rows > 0) {
                 $msg = "Voter ID already exists.";
             } else {
@@ -27,7 +27,7 @@ if(isset($_POST['save'])) {
                 if($pass !== '') {
                     $set .= ", voterPass='$pass'";
                 }
-                $conn->query("UPDATE voters SET $set WHERE voterID='$currentId'");
+                $conn->query("UPDATE voters SET $set WHERE BINARY voterID='$currentId'");
                 $msg="Voter updated.";
                 $editId = '';
                 $editData = null;
@@ -38,7 +38,7 @@ if(isset($_POST['save'])) {
             if($pass !== '') {
                 $set .= ", voterPass='$pass'";
             }
-            $conn->query("UPDATE voters SET $set WHERE voterID='$currentId'");
+            $conn->query("UPDATE voters SET $set WHERE BINARY voterID='$currentId'");
             $msg="Voter updated.";
             $editId = '';
             $editData = null;
@@ -46,7 +46,7 @@ if(isset($_POST['save'])) {
     } else {
         // Add
         $pass = $conn->real_escape_string($_POST['voterPass']);
-        $exists = $conn->query("SELECT voterID FROM voters WHERE voterID='$id' LIMIT 1");
+        $exists = $conn->query("SELECT voterID FROM voters WHERE BINARY voterID='$id' LIMIT 1");
         if($exists && $exists->num_rows > 0) {
             $msg = "Voter ID already exists.";
         } else {
@@ -58,13 +58,13 @@ if(isset($_POST['save'])) {
 
 if(isset($_GET['deact'])) {
     $id = $conn->real_escape_string($_GET['deact']);
-    $conn->query("UPDATE voters SET voterStat='inactive' WHERE voterID='$id'");
+    $conn->query("UPDATE voters SET voterStat='inactive' WHERE BINARY voterID='$id'");
     $msg="Voter deactivated.";
 }
 
 if(isset($_GET['activate'])) {
     $id = $conn->real_escape_string($_GET['activate']);
-    $conn->query("UPDATE voters SET voterStat='active' WHERE voterID='$id'");
+    $conn->query("UPDATE voters SET voterStat='active' WHERE BINARY voterID='$id'");
     $msg="Voter activated.";
 }
 
