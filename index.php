@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body class="w3-container">
-  <h2>Simple Philippine Election System (Demo)</h2>
+  <h2>Simple Philippine Election System</h2>
 
   <div class="w3-bar w3-light-grey">
     <a href="positions.php" class="w3-bar-item w3-button">Positions</a>
@@ -17,6 +17,5 @@
     <a href="winners.php" class="w3-bar-item w3-button">Winners</a>
   </div>
 
-  <p class="w3-small">This demo uses plain PHP + MySQL. Improve security (password hashing, prepared statements) for production.</p>
 </body>
 </html>
